@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Amigo X 🔞</title>
+
+<style>
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+#mensagem {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ff2fa4;
+  font-size: 7vw;
+  font-weight: 900;
+  padding: 30px;
+  animation: zoom 1s ease, glow 1.5s infinite alternate;
+}
+
+@keyframes zoom {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 25px #ff2fa4; }
+  to { text-shadow: 0 0 60px #ff79c6; }
+}
+
+.flash {
+  animation: bg 0.6s alternate infinite;
+}
+
+@keyframes bg {
+  from { background: black; }
+  to { background: #1a0010; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="mensagem">Aguardando...</div>
+
+<audio id="som" src="https://www.soundjay.com/buttons/sounds/button-30.mp3"></audio>
+
+<script>
+const mensagens = [
+  "👤 É uma pessoa adulta",
+  "💇 Tem cabelo (às vezes)",
+  "🍺 Gosta de beber mais do que devia",
+  "🚜 Curte o agro, mas não sabe usar ferramenta",
+  "🛠️ Perigosa perto de qualquer equipamento",
+  "😈 Já fez coisa que não conta nem bêbada",
+  "🔥 Você é minha amiga,<br>é gente boa,<br>divertida pra caralho…<br><br>💥 MAS TEM O CÚ DE MATAGAL 🌳🍑"
+];
+
+const msg = document.getElementById("mensagem");
+const som = document.getElementById("som");
+
+document.documentElement.requestFullscreen?.();
+
+const counterURL = "https://api.countapi.xyz/hit/amigox-18-2025/visitas";
+
+fetch(counterURL)
+  .then(r => r.json())
+  .then(data => {
+    msg.style.display = "flex";
+    if (data.value >= 3) iniciar();
+    else msg.innerHTML = `🔞 Faltam ${3 - data.value} adulto(s) escanear(em)`;
+  });
+
+function iniciar() {
+  let tempo = 10000;
+  document.body.classList.add("flash");
+
+  mensagens.forEach(texto => {
+    setTimeout(() => {
+      som.currentTime = 0;
+      som.play();
+      msg.innerHTML = texto;
+    }, tempo);
+    tempo += 10000;
+  });
+}
+</script>
+
+</body>
+</html>
